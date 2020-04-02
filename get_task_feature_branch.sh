@@ -12,15 +12,16 @@ if [[ "$MERGE_COMMIT" != "" ]]; then
     PARENT="$MERGE_COMMIT^1..$MERGE_COMMIT"
 
     # log feature branch commits
-    git log $PARENT $MERGE_COMMIT
+    git log $PARENT $MERGE_COMMIT --format=format:"%H"
+    echo feature branch
     exit
 fi
 
 SINGLE_COMMIT=$(git log --oneline -1 ":/#$TASK_ID" --format=format:"%H" 2>/dev/null || echo)
 
 if [[ $SINGLE_COMMIT != "" ]]; then
-   echo SINGLE_COMMIT \"$SINGLE_COMMIT\"
-   git log -1 $SINGLE_COMMIT
+   git log -1 $SINGLE_COMMIT --format=format:"%H"
+   echo single commit
    exit
 fi
 
